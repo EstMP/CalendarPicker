@@ -1,0 +1,151 @@
+.wrapper {
+    max-width: 350px;
+    margin: auto;
+}
+
+.disabled {
+    opacity: .2;
+    cursor: not-allowed;
+}
+
+.today {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+table td {
+    cursor: pointer;
+}
+
+table td div {
+    padding: 10px 0;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+table td:not(.disabled) div:hover {
+    border: 1px solid dodgerblue;
+}
+
+#calendar {
+    border: 1px solid #eee;
+    vertical-align: top;
+    /* margin-bottom: 20px; */
+}
+
+table {
+    width: 100%;
+}
+
+#cal-control {
+    text-align: center;
+    padding: 10px 10px 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 1em;
+}
+
+#cal-control #cal-prev-btn {
+    float: left;
+}
+
+#cal-control #cal-next-btn {
+    float: right;
+}
+
+.availability-less-20 {
+    background-color: red;
+    color: white;
+}
+
+.availability-less-40 {
+    background-color: red;
+    color: white;
+}
+
+.availability-less-60 {
+    background-color: orange;
+    color: white;
+}
+
+.availability-less-80 {
+    background-color: yellow;
+    color: teal;
+}
+
+.availability-equals-100 {
+    background-color: green;
+    color: white;
+}
+
+#sch-date {
+    border-bottom: 1px solid #eee;
+}
+
+#sch-date-month {
+    background-color: dodgerblue;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+#sch-date-month span {
+    font-size: 1.2em;
+}
+
+#sch-date-date {
+    text-align: center;
+    font-size: 3em;
+}
+
+#sch-date-date span {
+    display: inline-block;
+}
+
+#sch-date-date span, #sch-prev-btn, #sch-next-btn {
+    width: 33.333333%;
+}
+
+#sch-body-schedules {
+    text-align: center;
+    padding: 6px;
+}
+
+#sch-body-schedules h2 {
+    border-bottom: 1px solid #eee;
+}
+
+#sch-body li {
+    padding: 8px;
+    /* border-bottom: 1px solid #eee; */
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #eee;
+    margin: 4px;
+}
+
+#sch-body li:hover {
+    background-color: #eee;
+}
+
+#scheduler ul {
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+.selected {
+    background-color: dodgerblue;
+    color: white;
+    font-weight: bold;
+}
+
+.selected>div {
+    border: 1px solid white;
+    border: 1px solid dodgerblue;
+}
