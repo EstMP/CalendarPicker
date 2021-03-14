@@ -25,6 +25,19 @@ const calendar = {
         const events = new CalendarEvents();
 
         const c = new Calendar(options, dayGenerator, dayChecker, dateControl, dateGrabber, addonManager, actions, events);
+
+        const isEnabledDate = dayChecker.isDayEnabledByDate(dayGenerator.getDays(), options.getDate());
+
+        if (isEnabledDate) {
+            dateControl.setDay(options.getDate());
+        } else {
+            const date = dateGrabber.getFirstLastEnabledDate(
+                dayGenerator.getDays(), 'calendar.init');
+            if (date != INVALID_DATE) {
+                dateControl.setDay(date);
+            }
+        }
+
         const calendarRenderObserver = new CalendarRender();
         c.attach(calendarRenderObserver);
 
