@@ -12,8 +12,7 @@ class Calendar extends Observable {
     public events: iCalendarEvents;
 
     /**
-     * Set all calendar dependencies and select the first 
-     * enabled date
+     * Set all calendar dependencies
      * 
      * @param options 
      * @param dayGenerator 
