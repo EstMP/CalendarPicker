@@ -100,5 +100,24 @@ class DayChecker implements iDayChecker {
         return true;
     }
 
+    /**
+     * Check if day is enabled by date
+     * 
+     * @param days 
+     * @param date 
+     * @returns 
+     */
+     public isDayEnabledByDate(days: Array<Day>, date: Date): boolean {
+
+        for (let i = 0; i < days.length; i++) {
+            const day = days[i];
+            if (day.getDate().getTime() == date.getTime() && !day.isDisabled()) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
 }
