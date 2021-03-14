@@ -36,15 +36,6 @@ class Calendar extends Observable {
         this.action = actions;
         this.events = events;
 
-        const date = this.dateGrabber.getFirstLastEnabledDate(
-            this.dayGenerator.getDays(), 'calendar.init');
-
-        if (date) {
-
-            this.dateControl.setDay(date);
-
-        }
-
     }
 
 }
