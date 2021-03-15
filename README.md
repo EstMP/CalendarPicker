@@ -19,10 +19,10 @@ npm run build
 calendar.init({
     type: 'table',
     target: 'calendar', // HTML id container
-    date: new Date(), // Date.now(); new Date(); '2025-1-1', undefined,
+    date: new Date(),
     disable: {
         from: '2021-03-02',
-        previous: true,
+        to: new Date(),
         dates: [
             '2021-01-25',
             '2021-01-26',
@@ -30,8 +30,8 @@ calendar.init({
         ],
         weekdays: [6, 0]
     },
-    clickDayEvent: function (date) { console.log(date) }
-    changeMonthEvent: function (month, options, refresh) { }
+    clickDayEvent: function (date, options, refresh) {},
+    changeMonthEvent: function (date, options, refresh) {}
 });
 ```
 ## Options
@@ -53,8 +53,8 @@ Set HTML clases in table cells with percentage availability. Value is '100' by d
 ## Options - Disable
 ### `from`
 disable days from date
-### `previous`
-show/hide previous days
+### `to`
+disable days to date
 ### `dates`
 disable dates
 ### `weekdays`
