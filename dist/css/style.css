@@ -21,6 +21,7 @@ table td div {
     padding: 10px 0;
     text-align: center;
     border: 1px solid #eee;
+    font-size: .9em;
 }
 
 table td:not(.disabled) div:hover {
