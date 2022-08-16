@@ -1,6 +1,7 @@
 class CalendarOptions {
 
     private target: string;
+    private type: string;
     private date: Date;
     private selectedDate: Date;
     private autoSelect: boolean;
@@ -8,11 +9,13 @@ class CalendarOptions {
     public changeMonthEvent: Function;
     private disable: CalendarOptionsDisabled;
     private availability: CalendarOptionsavailability;
+    private notes: CalendarOptionsNotes;
     private scheduler: CalendarOptionsScheduler;
 
     constructor(options: Partial<OptionsType> = <OptionsType>{}) {
 
         this.target = options.target || "calendar";
+        this.type = options.type || "month"
         this.date = options.date ? DateHelper.strToDate(options.date) : DateHelper.getTodayDate();
         this.selectedDate = INVALID_DATE;
         this.autoSelect = options.autoSelect || false;
@@ -20,6 +23,7 @@ class CalendarOptions {
         this.changeMonthEvent = options.changeMonthEvent || (() => { });
         this.disable = new CalendarOptionsDisabled(options.disable);
         this.availability = new CalendarOptionsavailability(options.availability);
+        this.notes = new CalendarOptionsNotes(options.notes);
         this.scheduler = new CalendarOptionsScheduler(options.scheduler);
 
     }
@@ -27,6 +31,12 @@ class CalendarOptions {
     public getTarget(): string {
 
         return this.target;
+
+    }
+
+    public getType(): string {
+
+        return this.type;
 
     }
 
@@ -68,6 +78,12 @@ class CalendarOptions {
     public getavailability(): CalendarOptionsavailability {
 
         return this.availability;
+
+    }
+
+    public getNotes(): CalendarOptionsNotes {
+
+        return this.notes;
 
     }
 

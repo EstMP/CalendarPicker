@@ -5,6 +5,7 @@ class Day {
     private disabled: boolean;
     private today: boolean;
     private availability: number = NaN;
+    private notes: string = '';
     private mods: Record<string, any> = {};
 
     constructor(date: Date, current: boolean, disable: boolean, today: boolean) {
@@ -61,6 +62,18 @@ class Day {
     public setAvailability(value: number): void {
 
         this.availability = value;
+
+    }
+
+    public getNotes(): string {
+
+        return this.notes;
+
+    }
+
+    public setNotes(value: string): void {
+
+        this.notes = value;
 
     }
 

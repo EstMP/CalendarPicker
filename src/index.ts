@@ -11,12 +11,22 @@ const calendar = {
 
         const options = new CalendarOptions(inputOptions);
 
+        /**
+         * DAY MODIFIERS
+         */
         const dayMods = new DayMods();
         if (options.getavailability().isEnabled()) {
             const dayAvailability = new DayAvailability(options.getavailability());
             dayMods.add(dayAvailability);
         }
-        const dayGenerator = new DayGenerator(options, dayMods);
+        if (options.getNotes().isEnabled()) {
+            const dayNotes = new DayNotes(options.getNotes());
+            dayMods.add(dayNotes);
+        }
+        /**
+         * CONSTRUCT CALENDAR
+         */
+        const dayGenerator = options.getType() == 'month' ? new DayGenerator(options, dayMods) : new YearGenerator(options, dayMods);
         const dayChecker = new DayChecker();
         const dateControl = new DateControl(options);
         const dateGrabber = new DateGrabber();
@@ -26,17 +36,21 @@ const calendar = {
 
         const c = new Calendar(options, dayGenerator, dayChecker, dateControl, dateGrabber, addonManager, actions, events);
 
-        const isEnabledDate = dayChecker.isDayEnabledByDate(dayGenerator.getDays(), options.getDate());
+        if (options.getType() == 'month') {
 
-        if (isEnabledDate) {
-            dateControl.setDay(options.getDate());
-        } else {
-            const date = dateGrabber.getFirstLastEnabledDate(
-                dayGenerator.getDays(), 'calendar.init');
-            if (date != INVALID_DATE) {
-                dateControl.setDay(date);
+            const isEnabledDate = dayChecker.isDayEnabledByDate(dayGenerator.getDays(), options.getDate());
+
+            if (isEnabledDate) {
+                dateControl.setDay(options.getDate());
+            } else {
+                const date = dateGrabber.getFirstLastEnabledDate(
+                    dayGenerator.getDays(), 'calendar.init');
+                if (date != INVALID_DATE) {
+                    dateControl.setDay(date);
+                }
             }
         }
+
 
         const calendarRenderObserver = new CalendarRender();
         c.attach(calendarRenderObserver);

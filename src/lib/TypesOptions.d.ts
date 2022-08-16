@@ -1,11 +1,13 @@
 type OptionsType = {
     target: string,
+    type: string,
     date: string,
     autoSelect: boolean,
     clickDayEvent: Function,
     changeMonthEvent: Function,
     disable: OptionsDisabledType,
     availability: OptionsavailabilityType,
+    notes: OptionsNotesType,
     scheduler: OptionsSchedulerType
 }
 
@@ -31,4 +33,10 @@ type OptionsSchedulerType = {
     interval: number,
     values: string[],
     clickTimeEvent: Function
+}
+
+type OptionsNotesType = {
+    enabled: boolean,
+    default: string,
+    values: [string, string][]
 }
