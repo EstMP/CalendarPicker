@@ -57,9 +57,9 @@ class DateHelper {
 
     }
 
-    static strsNumbersToDatesNumbers(availability: [string, number][]): [Date, number][] {
+    static strAnyToDateAny(availability: [string, any][]): [Date, any][] {
 
-        const _availability: [Date, number][] = availability.map((e) => {
+        const _availability: [Date, any][] = availability.map((e) => {
             const date = new Date(e[0]);
             date.setHours(0, 0, 0, 0);
             return [date, e[1]]

@@ -146,7 +146,74 @@ button {
     font-weight: bold;
 }
 
-.selected>div {
+/* .selected>div {
     border: 1px solid white;
     border: 1px solid dodgerblue;
+} */
+
+.year {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* gap: .5rem; */
+    color: #333;
+    font-size: 14px;
+    font-family: Arial;
+}
+
+.month {
+    /* flex: 1 0 0px; */
+    min-width: 127px;
+}
+
+.day-cell {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    border-right: 1px solid #eee;
+    padding: 4px;
+}
+
+.third-day-cell {
+    display: inline-block;
+    width: 60px;
+    white-space: nowrap;
+    overflow: clip;
+    text-overflow: ellipsis;
+}
+
+.day {
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    position: relative;
+}
+
+.day-number {
+    background-color: #eee;
+}
+
+.selected .day-number {
+    background-color: #888;
+}
+
+.month-name {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.third-day-cell {
+    padding: 0 4px;
+}
+
+.disabled .third-day-cell {
+    position: absolute;
+    height: 100%;
+    background-color: #666;
+}
+
+.note, .note .day-number {
+    background-color: aqua;
 }

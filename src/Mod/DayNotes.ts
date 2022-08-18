@@ -27,7 +27,7 @@ class DayNotes implements iDayMod {
         }
 
         if (day.getNotes() !== '') {
-            day.setDisabled(true);
+            //day.setDisabled(true);
         }
 
     }

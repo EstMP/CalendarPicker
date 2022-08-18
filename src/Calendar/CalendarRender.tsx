@@ -1,4 +1,5 @@
 const WEEK_NAMES = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+const WEEK_NAMES_NORMALIZE = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
 
 class CalendarRender implements iObserver {
 
@@ -6,13 +7,19 @@ class CalendarRender implements iObserver {
 
         if (subject instanceof Calendar) {
 
-            this.render(subject);
+            if (subject.options.getType() == 'month') {
+                this.renderMonth(subject);
+            }
+
+            if (subject.options.getType() == 'year') {
+                this.renderYear(subject);
+            }
 
         }
 
     }
 
-    private render(calendar: Calendar) {
+    private renderMonth(calendar: Calendar) {
 
         let container = document.getElementById(calendar.options.getTarget());
         if (container === null) {
@@ -171,6 +178,81 @@ class CalendarRender implements iObserver {
             }
 
         }
+
+    }
+
+    private renderYear(calendar: Calendar) {
+
+        let container = document.getElementById(calendar.options.getTarget());
+        if (container === null) {
+            throw CONTAINER_NOT_FOUND;
+        } else {
+            container.innerHTML = "";
+        }
+
+        function cal() {
+            let divYear = <div></div>;
+
+
+            return (
+                <div class="year">
+
+                    {calendar.dayGenerator.getDays().map((month: Day[], i) => {
+
+                        let localeStr = month[0].getDate().toLocaleString(
+                            undefined,
+                            { month: 'long' });
+
+                        let divMonth = <div class="month"><div class="month-name">{localeStr}</div></div>;
+
+                        month.map((day: Day, i) => {
+                            let selected = '';
+                            let dayClass = '';
+                            if (day.isToday()) dayClass = 'today';
+                            if (day.isDisabled()) {
+                                dayClass += ' disabled'
+                            } else {
+                                console.log(day.getNotes());
+                                if (day.getNotes().length > 0) {
+                                    dayClass += ' note';
+                                }
+
+                                if (calendar.options.getSelectedDate().getTime() === day.getDate().getTime()) {
+                                    selected = 'selected';
+                                }
+
+                            }
+
+                            divMonth.appendChild(
+                                <div class={dayClass + ' day'}  title={day.getNotes()}>
+                                    <div class={selected} onClick={
+                                        function (e: MouseEvent) {
+                                            const t = e.currentTarget as HTMLTableDataCellElement;
+                                            if (t.id !== 'selected' && !day.isDisabled()) {
+                                                calendar.events.changeDayEvent(calendar, day.getDate());
+                                            }
+
+                                        }
+                                    }>
+                                        <div class="day-cell day-number">{day.getDay()}</div>
+                                        <div class="day-cell day-weekname">{WEEK_NAMES_NORMALIZE[day.getDate().getDay()]}</div>
+                                        <div class="third-day-cell"></div>
+                                    </div>
+                                </div>
+
+                            )
+                        });
+
+
+                        return divMonth
+
+                    })}
+                </div>
+            );
+        }
+        container.appendChild(cal());
+        //console.log(calendar.dayGenerator.getDays());
+
 
     }
 

@@ -71,7 +71,7 @@ interface iCalendarEvents {
 interface iDayGenerator {
 
     generate(): void;
-    getDays(): Array<Day>;
+    getDays(): Array<any>;
 
 }
 

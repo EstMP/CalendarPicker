@@ -8,7 +8,7 @@ class CalendarOptionsavailability {
 
         this.enabled = availability.enabled || false;
         this.default = availability.default || 0;
-        this.values = availability.values ? DateHelper.strsNumbersToDatesNumbers(availability.values) : [];
+        this.values = availability.values ? DateHelper.strAnyToDateAny(availability.values) : [];
 
     }
 
@@ -32,7 +32,7 @@ class CalendarOptionsavailability {
 
     public setValues(availability: [string, number][]): void {
 
-        this.values = DateHelper.strsNumbersToDatesNumbers(availability);
+        this.values = DateHelper.strAnyToDateAny(availability);
 
     }
 
