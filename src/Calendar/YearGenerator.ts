@@ -1,13 +1,13 @@
 class YearGenerator implements iDayGenerator {
 
     private options: CalendarOptions;
-    private months: Array<Array<Day>>;
+    private days: Array<Day>;
     private mods: DayMods;
 
     constructor(options: CalendarOptions, mods: DayMods) {
 
         this.options = options;
-        this.months = [];
+        this.days = [];
         this.mods = mods;
         this.generate();
 
@@ -29,12 +29,11 @@ class YearGenerator implements iDayGenerator {
 
         // Starts in January
         const _date = new Date(date.getFullYear(), 0);
+        const calendar = new Array();
 
         for (let index = 0; index < 12; index++) {
 
-            const calendar = new Array();
             const month = new Month(_date, false, false);
-            const year = [];
             const days = month.getDays();
 
             for (let index = 0; index < days.length; index++) {
@@ -47,7 +46,7 @@ class YearGenerator implements iDayGenerator {
                     disabledDates, dateDay);
                 const isDisableWeekday = DateHelper.findNumber(
                     disableWeekdays, dateDay.getDay());
-                const isDisabled =  isDisableDate || isDisableWeekday || isDisableFrom;
+                    const isDisabled = isDisableTo || isDisableDate || isDisableWeekday || isDisableFrom ;
                 const isToday = dateDay.getTime() == today.getTime();
 
                 const day = new Day(dateDay, isCurrentMonth, isDisabled, isToday);
@@ -56,20 +55,16 @@ class YearGenerator implements iDayGenerator {
                 calendar.push(day);
 
             }
-
-            this.months.push(calendar);
             _date.setMonth(_date.getMonth() + 1);
 
         }
 
+        this.days = calendar;
+
     }
 
     getDays(): any[] {
-        return this.months;
-    }
-
-    getMonths(): Array<Array<Day>> {
-        return this.months;
+        return this.days;
     }
 
 }

@@ -192,57 +192,57 @@ class CalendarRender implements iObserver {
 
         function cal() {
             let divYear = <div></div>;
-
+            let lastMonth = -1;
+            let days = calendar.dayGenerator.getDays();
+            let divMonth = <div></div>;
 
             return (
                 <div class="year">
 
-                    {calendar.dayGenerator.getDays().map((month: Day[], i) => {
+                    {days.map((day: Day, i) => {
 
-                        let localeStr = month[0].getDate().toLocaleString(
-                            undefined,
-                            { month: 'long' });
+                        if (day.getDate().getMonth() !== lastMonth) {
+                            lastMonth = day.getDate().getMonth();
+                            let localeStr = day.getDate().toLocaleString(
+                                undefined,
+                                { month: 'long' });
 
-                        let divMonth = <div class="month"><div class="month-name">{localeStr}</div></div>;
+                            divMonth = <div class="month"><div class="month-name">{localeStr}</div></div>;
+                        }
 
-                        month.map((day: Day, i) => {
-                            let selected = '';
-                            let dayClass = '';
-                            if (day.isToday()) dayClass = 'today';
-                            if (day.isDisabled()) {
-                                dayClass += ' disabled'
-                            } else {
-                                console.log(day.getNotes());
-                                if (day.getNotes().length > 0) {
-                                    dayClass += ' note';
-                                }
-
-                                if (calendar.options.getSelectedDate().getTime() === day.getDate().getTime()) {
-                                    selected = 'selected';
-                                }
-
+                        let selected = '';
+                        let dayClass = '';
+                        if (day.isToday()) dayClass = 'today';
+                        if (day.isDisabled()) {
+                            dayClass += ' disabled'
+                        } else {
+                            if (day.getNotes().length > 0) {
+                                dayClass += ' note';
                             }
 
-                            divMonth.appendChild(
-                                <div class={dayClass + ' day'}  title={day.getNotes()}>
-                                    <div class={selected} onClick={
-                                        function (e: MouseEvent) {
-                                            const t = e.currentTarget as HTMLTableDataCellElement;
-                                            if (t.id !== 'selected' && !day.isDisabled()) {
-                                                calendar.events.changeDayEvent(calendar, day.getDate());
-                                            }
+                            if (calendar.options.getSelectedDate().getTime() === day.getDate().getTime()) {
+                                selected = 'selected';
+                            }
+                        }
 
+                        divMonth.appendChild(
+                            <div class={dayClass + ' day'} title={day.getNotes()}>
+                                <div class={selected} onClick={
+                                    function (e: MouseEvent) {
+                                        const t = e.currentTarget as HTMLTableDataCellElement;
+                                        if (t.id !== 'selected' && !day.isDisabled()) {
+                                            calendar.events.changeDayEvent(calendar, day.getDate());
                                         }
-                                    }>
-                                        <div class="day-cell day-number">{day.getDay()}</div>
-                                        <div class="day-cell day-weekname">{WEEK_NAMES_NORMALIZE[day.getDate().getDay()]}</div>
-                                        <div class="third-day-cell"></div>
-                                    </div>
+
+                                    }
+                                }>
+                                    <div class="day-cell day-number">{day.getDay()}</div>
+                                    <div class="day-cell day-weekname">{WEEK_NAMES_NORMALIZE[day.getDate().getDay()]}</div>
+                                    <div class="third-day-cell"></div>
                                 </div>
+                            </div>
 
-                            )
-                        });
-
+                        )
 
                         return divMonth
 
@@ -250,9 +250,8 @@ class CalendarRender implements iObserver {
                 </div>
             );
         }
-        container.appendChild(cal());
-        //console.log(calendar.dayGenerator.getDays());
 
+        container.appendChild(cal());
 
     }
 
