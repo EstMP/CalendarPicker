@@ -33,6 +33,7 @@ class YearGenerator implements iDayGenerator {
 
         for (let index = 0; index < 12; index++) {
 
+            // TODO: Use month properties
             const month = new Month(_date, false, false);
             const days = month.getDays();
 
