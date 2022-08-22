@@ -33,7 +33,7 @@ class DayNotes implements iDayMod {
                 value = data;
 
                 if (data[0].disabled) {
-                    //day.setDisabled(true);
+                    day.setDisabled(true);
                 }
             }
 
