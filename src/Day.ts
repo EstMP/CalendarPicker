@@ -4,9 +4,7 @@ class Day {
     private current: boolean;
     private disabled: boolean;
     private today: boolean;
-    private availability: number = NaN;
-    private notes: string = '';
-    private mods: Record<string, any> = {};
+    private modData: iDayModData[] = [];
 
     constructor(date: Date, current: boolean, disable: boolean, today: boolean) {
 
@@ -53,27 +51,15 @@ class Day {
 
     }
 
-    public getavailability(): number {
+    public getModData(): iDayModData[] {
 
-        return this.availability;
-
-    }
-
-    public setAvailability(value: number): void {
-
-        this.availability = value;
+        return this.modData;
 
     }
 
-    public getNotes(): string {
+    public addModData(data: iDayModData): void {
 
-        return this.notes;
-
-    }
-
-    public setNotes(value: string): void {
-
-        this.notes = value;
+        this.modData.push(data);
 
     }
 

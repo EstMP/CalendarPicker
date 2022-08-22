@@ -76,9 +76,13 @@ interface iDayGenerator {
 }
 
 interface iDay {
-    
+
 }
 
 interface iDayMod {
-    getData(day: Day): void;
+    modificator(day: Day): void;
+}
+
+interface iDayModData {
+    getData(data: any): void;
 }

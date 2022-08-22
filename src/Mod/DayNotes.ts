@@ -8,7 +8,9 @@ class DayNotes implements iDayMod {
 
     }
 
-    public getData(day: Day): void {
+    public modificator(day: Day): void {
+
+        let value = '';
 
         const find = this.options.getValues().filter((currentValue) => {
             return currentValue[0].getTime() === day.getDate().getTime();
@@ -16,19 +18,18 @@ class DayNotes implements iDayMod {
 
         if (find.length == 0) {
             const defaultVal = this.options.getDefault();
-            day.setNotes(defaultVal);
+            value = (defaultVal);
         }
 
         if (find[0]) {
             if (find[0][0]) {
-                day.setNotes(find[0][1]);
-
+                value = (find[0][1]);
             }
         }
 
-        if (day.getNotes() !== '') {
-            //day.setDisabled(true);
-        }
+        let data = new DayNotesData();
+        data.setData(value);
+        day.addModData(data);
 
     }
 

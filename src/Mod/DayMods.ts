@@ -1,5 +1,5 @@
 class DayMods {
-    
+
     private mods: iDayMod[];
 
     constructor(mods: iDayMod[] = []) {
@@ -17,7 +17,7 @@ class DayMods {
     apply(day: Day) {
 
         this.mods.forEach(mod => {
-            mod.getData(day)
+            mod.modificator(day)
         });
 
     }

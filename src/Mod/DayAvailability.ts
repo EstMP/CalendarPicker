@@ -8,27 +8,33 @@ class DayAvailability implements iDayMod {
 
     }
 
-    public getData(day: Day): void {
+    public modificator(day: Day): void {
+
+        let value = 0;
 
         const find = this.options.getValues().filter((currentValue) => {
             return currentValue[0].getTime() === day.getDate().getTime();
         });
-        
+
         if (find.length == 0) {
             const defaultVal = this.options.getDefault();
-            day.setAvailability(defaultVal);
-        } 
+            value = (defaultVal);
+        }
 
         if (find[0]) {
             if (find[0][0]) {
-                day.setAvailability(find[0][1]);
+                value = (find[0][1]);
 
             }
         }
 
-        if (day.getavailability() == 0) {            
+        if (value == 0) {
             day.setDisabled(true);
         }
+
+        let data = new DayAvailabilityData();
+        data.setData(value);
+        day.addModData(data);
 
     }
 

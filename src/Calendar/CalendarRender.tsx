@@ -113,6 +113,20 @@ class CalendarRender implements iObserver {
                         </tr>
 
                         {calendar.dayGenerator.getDays().map((day, i) => {
+
+
+                            let availability = NaN;
+
+                            let mods = day.getModData();
+                            mods.forEach(mod => {
+                                if (mod instanceof DayAvailabilityData) {
+                                    availability = mod.getData();
+                                }
+                            });
+
+                            //let availability: number = new DayAvailability(calendar.options.getavailability()).getData(day);
+
+
                             let selected = '';
                             let dayClass = '';
                             if (i % 7 === 0) tr = <tr></tr>;
@@ -120,15 +134,15 @@ class CalendarRender implements iObserver {
                             if (day.isDisabled()) {
                                 dayClass += ' disabled'
                             } else {
-                                if (day.getavailability() < 20) {
+                                if (availability < 20) {
                                     dayClass += ' availability-less-20';
-                                } else if (day.getavailability() < 40) {
+                                } else if (availability < 40) {
                                     dayClass += ' availability-less-40';
-                                } else if (day.getavailability() < 60) {
+                                } else if (availability < 60) {
                                     dayClass += ' availability-less-60';
-                                } else if (day.getavailability() < 80) {
+                                } else if (availability < 80) {
                                     dayClass += ' availability-less-80';
-                                } else if (day.getavailability() <= 100) {
+                                } else if (availability <= 100) {
                                     dayClass += ' availability-equals-100';
                                 }
 
@@ -196,10 +210,24 @@ class CalendarRender implements iObserver {
             let days = calendar.dayGenerator.getDays();
             let divMonth = <div></div>;
 
+            //let notesObj: DayNotes = new DayNotes(calendar.options.getNotes());
+
             return (
                 <div class="year">
 
                     {days.map((day: Day, i) => {
+
+                        //let notes: string = notesObj.getData(day);
+
+                        let availability = calendar.options.getavailability().getDefault();
+                        let notes = calendar.options.getNotes().getDefault();
+
+                        let mods = day.getModData();
+                        mods.forEach(mod => {
+                            if (mod instanceof DayNotesData) {
+                                notes = mod.getData();
+                            }
+                        });
 
                         if (day.getDate().getMonth() !== lastMonth) {
                             lastMonth = day.getDate().getMonth();
@@ -216,7 +244,7 @@ class CalendarRender implements iObserver {
                         if (day.isDisabled()) {
                             dayClass += ' disabled'
                         } else {
-                            if (day.getNotes().length > 0) {
+                            if (notes.length > 0) {
                                 dayClass += ' note';
                             }
 
@@ -226,7 +254,7 @@ class CalendarRender implements iObserver {
                         }
 
                         divMonth.appendChild(
-                            <div class={dayClass + ' day'} title={day.getNotes()}>
+                            <div class={dayClass + ' day'} title={notes}>
                                 <div class={selected} onClick={
                                     function (e: MouseEvent) {
                                         const t = e.currentTarget as HTMLTableDataCellElement;
