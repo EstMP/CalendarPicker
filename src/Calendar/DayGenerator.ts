@@ -42,12 +42,12 @@ class DayGenerator implements iDayGenerator {
                 disabledDates, dateDay);
             const isDisableWeekday = DateHelper.findNumber(
                 disableWeekdays, dateDay.getDay());
-            const isDisabled = isDisableTo || !isCurrentMonth || isDisableDate || isDisableWeekday || isDisableFrom ;
+            const isDisabled = isDisableTo || !isCurrentMonth || isDisableDate || isDisableWeekday || isDisableFrom;
             const isToday = _date.getTime() == today.getTime();
 
             const day = new Day(dateDay, isCurrentMonth, isDisabled, isToday);
             this.mods.apply(day);
-                        
+
             calendar.push(day);
 
             _date.setDate(_date.getDate() + 1);

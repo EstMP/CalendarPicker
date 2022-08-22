@@ -18,6 +18,7 @@ class YearGenerator implements iDayGenerator {
      */
     public generate(): void {
 
+        const calendar = new Array();
         const date = this.options.getDate();
         const disableOptions = this.options.getDisable();
         const disableFrom = disableOptions.getFrom();
@@ -29,7 +30,6 @@ class YearGenerator implements iDayGenerator {
 
         // Starts in January
         const _date = new Date(date.getFullYear(), 0);
-        const calendar = new Array();
 
         for (let index = 0; index < 12; index++) {
 
@@ -46,7 +46,7 @@ class YearGenerator implements iDayGenerator {
                     disabledDates, dateDay);
                 const isDisableWeekday = DateHelper.findNumber(
                     disableWeekdays, dateDay.getDay());
-                    const isDisabled = isDisableTo || isDisableDate || isDisableWeekday || isDisableFrom ;
+                const isDisabled = isDisableTo || isDisableDate || isDisableWeekday || isDisableFrom;
                 const isToday = dateDay.getTime() == today.getTime();
 
                 const day = new Day(dateDay, isCurrentMonth, isDisabled, isToday);

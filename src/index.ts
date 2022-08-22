@@ -23,6 +23,7 @@ const calendar = {
             const dayNotes = new DayNotes(options.getNotes());
             dayMods.add(dayNotes);
         }
+
         /**
          * CONSTRUCT CALENDAR
          */
