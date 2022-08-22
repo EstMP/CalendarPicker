@@ -7,26 +7,27 @@ class CalendarRender implements iObserver {
 
         if (subject instanceof Calendar) {
 
+            let container = document.getElementById(subject.options.getTarget());
+            if (container === null) {
+                throw CONTAINER_NOT_FOUND;
+            } else {
+                container.innerHTML = "";
+            }
+
+
             if (subject.options.getType() == 'month') {
-                this.renderMonth(subject);
+                this.renderMonth(subject, container);
             }
 
             if (subject.options.getType() == 'year') {
-                this.renderYear(subject);
+                this.renderYear(subject, container);
             }
 
         }
 
     }
 
-    private renderMonth(calendar: Calendar) {
-
-        let container = document.getElementById(calendar.options.getTarget());
-        if (container === null) {
-            throw CONTAINER_NOT_FOUND;
-        } else {
-            container.innerHTML = "";
-        }
+    private renderMonth(calendar: Calendar, container: HTMLElement) {
 
         const p = calendar.action.prevDayAction.run.bind(calendar.action.prevDayAction);
         const n = calendar.action.nextDayAction.run.bind(calendar.action.nextDayAction);
@@ -195,31 +196,18 @@ class CalendarRender implements iObserver {
 
     }
 
-    private renderYear(calendar: Calendar) {
-
-        let container = document.getElementById(calendar.options.getTarget());
-        if (container === null) {
-            throw CONTAINER_NOT_FOUND;
-        } else {
-            container.innerHTML = "";
-        }
+    private renderYear(calendar: Calendar, container: HTMLElement) {
 
         function cal() {
-            let divYear = <div></div>;
             let lastMonth = -1;
             let days = calendar.dayGenerator.getDays();
             let divMonth = <div></div>;
-
-            //let notesObj: DayNotes = new DayNotes(calendar.options.getNotes());
 
             return (
                 <div class="year">
 
                     {days.map((day: Day, i) => {
 
-                        //let notes: string = notesObj.getData(day);
-
-                        let availability = calendar.options.getavailability().getDefault();
                         let notes = calendar.options.getNotes().getDefault();
 
                         let mods = day.getModData();
@@ -240,13 +228,15 @@ class CalendarRender implements iObserver {
 
                         let selected = '';
                         let dayClass = '';
+                        let dayNoteInfo = false;
                         if (day.isToday()) dayClass = 'today';
+                        if (notes.length > 0) {
+                            dayClass += ' note ' + notes[0].type;
+                            dayNoteInfo = true;
+                        }
                         if (day.isDisabled()) {
                             dayClass += ' disabled'
                         } else {
-                            if (notes.length > 0) {
-                                dayClass += ' note';
-                            }
 
                             if (calendar.options.getSelectedDate().getTime() === day.getDate().getTime()) {
                                 selected = 'selected';
@@ -254,19 +244,31 @@ class CalendarRender implements iObserver {
                         }
 
                         divMonth.appendChild(
-                            <div class={dayClass + ' day'} title={notes}>
+                            <div class={dayClass + ' day'} title={notes.map((note, i) => {
+                                return note.note + '\n';
+                            })}>
                                 <div class={selected} onClick={
                                     function (e: MouseEvent) {
-                                        const t = e.currentTarget as HTMLTableDataCellElement;
-                                        if (t.id !== 'selected' && !day.isDisabled()) {
+                                        const t = e.currentTarget as HTMLElement;
+                                        if (!t.classList.contains('selected') && !day.isDisabled()) {
                                             calendar.events.changeDayEvent(calendar, day.getDate());
                                         }
-
                                     }
                                 }>
                                     <div class="day-cell day-number">{day.getDay()}</div>
                                     <div class="day-cell day-weekname">{WEEK_NAMES_NORMALIZE[day.getDate().getDay()]}</div>
-                                    <div class="third-day-cell"></div>
+                                    {dayNoteInfo ? <div class='day-cell day-note-info'>ℹ</div> : <div class="third-day-cell"></div>}
+
+                                </div>
+                                <div class="notes-data-wrapper">
+                                    <div class="notes-data">
+                                        {
+                                            notes.map((note, i) => {
+                                                return <div>{note.note}</div>
+
+                                            })
+                                        }
+                                    </div>
                                 </div>
                             </div>
 

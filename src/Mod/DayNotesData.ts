@@ -1,18 +1,11 @@
 class DayNotesData implements iDayModData {
 
-    private data: string = '';
-    private type: string = ''
+    private data: Array<DayNotesValuesType> = [];
 
     setData(data: any): void {
         this.data = data;
     }
-    getData(): string {
+    getData(): Array<DayNotesValuesType> {
         return this.data;
-    }
-    setType(type: string): void {
-        this.type = type;
-    }
-    getType(): string {
-        return this.type;
     }
 }

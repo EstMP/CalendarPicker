@@ -1,3 +1,9 @@
+type DayNotesValuesType = {
+    type: string,
+    note: string,
+    disabled: boolean
+}
+
 class DayNotes implements iDayMod {
 
     private options: CalendarOptionsNotes;
@@ -10,7 +16,7 @@ class DayNotes implements iDayMod {
 
     public modificator(day: Day): void {
 
-        let value = '';
+        let value: Array<DayNotesValuesType> = [];
 
         const find = this.options.getValues().filter((currentValue) => {
             return currentValue[0].getTime() === day.getDate().getTime();
@@ -18,13 +24,19 @@ class DayNotes implements iDayMod {
 
         if (find.length == 0) {
             const defaultVal = this.options.getDefault();
-            value = (defaultVal);
+            value = defaultVal;
         }
 
         if (find[0]) {
             if (find[0][0]) {
-                value = (find[0][1]);
+                const data: DayNotesValuesType[] = find[0][1];
+                value = data;
+
+                if (data[0].disabled) {
+                    //day.setDisabled(true);
+                }
             }
+
         }
 
         let data = new DayNotesData();

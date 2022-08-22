@@ -1,13 +1,13 @@
 class CalendarOptionsNotes {
 
     private enabled: boolean;
-    private default: string;
-    private values: [Date, string][];
+    private default: Array<DayNotesValuesType>;
+    private values: [Date, Array<DayNotesValuesType>][];
 
     constructor(notes: Partial<OptionsNotesType> = <OptionsNotesType>{}) {
 
         this.enabled = notes.enabled || false;
-        this.default = notes.default || '';
+        this.default = notes.default || [];
         this.values = notes.values ? DateHelper.strAnyToDateAny(notes.values) : [];
 
     }
@@ -18,19 +18,19 @@ class CalendarOptionsNotes {
 
     }
 
-    public getValues(): [Date, string][] {
+    public getValues(): [Date, Array<DayNotesValuesType>][] {
 
         return this.values;
 
     }
 
-    public getDefault(): string {
+    public getDefault(): Array<DayNotesValuesType> {
 
         return this.default;
 
     }
 
-    public setValues(notes: [string, string][]): void {
+    public setValues(notes: [string, Array<DayNotesValuesType>][]): void {
 
         this.values = DateHelper.strAnyToDateAny(notes);
 

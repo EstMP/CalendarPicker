@@ -108,7 +108,9 @@ button {
     display: inline-block;
 }
 
-#sch-date-date span, #sch-prev-btn, #sch-next-btn {
+#sch-date-date span,
+#sch-prev-btn,
+#sch-next-btn {
     width: 33.333333%;
 }
 
@@ -166,26 +168,27 @@ button {
     min-width: 127px;
 }
 
+.month-name {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.year .month .day {
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    position: relative;
+    max-width: 126px;
+}
+
 .day-cell {
     display: inline-block;
     width: 20px;
     text-align: center;
     border-right: 1px solid #eee;
     padding: 4px;
-}
-
-.third-day-cell {
-    display: inline-block;
-    width: 60px;
-    white-space: nowrap;
-    overflow: clip;
-    text-overflow: ellipsis;
-}
-
-.day {
-    border-bottom: 1px solid #eee;
-    border-right: 1px solid #eee;
-    position: relative;
 }
 
 .day-number {
@@ -196,15 +199,12 @@ button {
     background-color: #888;
 }
 
-.month-name {
-    background-color: dodgerblue;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-transform: capitalize;
-}
-
 .third-day-cell {
+    display: inline-block;
+    width: 60px;
+    white-space: nowrap;
+    overflow: clip;
+    text-overflow: ellipsis;
     padding: 0 4px;
 }
 
@@ -214,6 +214,31 @@ button {
     background-color: #666;
 }
 
-.note, .note .day-number {
+.note,
+.note .day-note-info {
     background-color: aqua;
+}
+
+.notes-data-wrapper {
+    display: none;
+}
+
+.notes-data {
+    margin: 10px;
+}
+
+.notes-data div {
+    /* white-space: nowrap; */
+    overflow: clip;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.note .selected~.notes-data-wrapper {
+    display: inherit;
+}
+
+.day-note-info {
+    float: right;
 }
