@@ -10,7 +10,7 @@ class DayNotes implements iDayMod {
 
     public modificator(day: Day): void {
 
-        let value: Array<NoteType> = [{ type: '', text: '', enabled: false }];
+        let value: Array<NoteType> = this.options.getDefault();
 
         const find = this.options.getValues().filter((currentValue) => {
             return currentValue[0].getTime() === day.getDate().getTime();
@@ -22,6 +22,9 @@ class DayNotes implements iDayMod {
 
         if (find[0]) {
             if (find[0][0]) {
+
+                day.setDisabled(false);
+                
                 const dataTotype = find.map((note, i) => {
 
                     var data: NoteType[] = []
