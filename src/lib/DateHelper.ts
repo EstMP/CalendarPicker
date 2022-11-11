@@ -69,6 +69,18 @@ class DateHelper {
 
     }
 
+    static strNotesToDateNotes(notes: [string, [string, string, boolean][]][]): [Date, [string, string, boolean][]][] {
+
+        const _notes: [Date, [string, string, boolean][]][] = notes.map((e) => {
+            const date = new Date(e[0]);
+            date.setHours(0, 0, 0, 0);
+            return [date, e[1]]
+        })
+
+        return _notes;
+
+    }
+
     /**
      * Returns Date array from time string array
      * 

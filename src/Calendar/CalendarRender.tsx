@@ -217,6 +217,11 @@ class CalendarRender implements iObserver {
                             }
                         });
 
+                        /* if (notes.length > 0) {
+                            console.log(notes);
+                            
+                        } */
+
                         if (day.getDate().getMonth() !== lastMonth) {
                             lastMonth = day.getDate().getMonth();
                             let localeStr = day.getDate().toLocaleString(
@@ -231,7 +236,9 @@ class CalendarRender implements iObserver {
                         let dayNoteInfo = false;
                         if (day.isToday()) dayClass = 'today';
                         if (notes.length > 0) {
-                            dayClass += ' note ' + notes[0].type;
+                            dayClass += ' note ' + notes.map((note, i) => {
+                                return note.type;
+                            }).join(" ");
                             dayNoteInfo = true;
                         }
                         if (day.isDisabled()) {
@@ -245,7 +252,7 @@ class CalendarRender implements iObserver {
 
                         divMonth.appendChild(
                             <div class={dayClass + ' day'} title={notes.map((note, i) => {
-                                return note.note + '\n';
+                                return note.text + '\n';
                             })}>
                                 <div class={selected} onClick={
                                     function (e: MouseEvent) {
@@ -264,7 +271,7 @@ class CalendarRender implements iObserver {
                                     <div class="notes-data">
                                         {
                                             notes.map((note, i) => {
-                                                return <div>{note.note}</div>
+                                                return <div>{note.text}</div>
 
                                             })
                                         }
