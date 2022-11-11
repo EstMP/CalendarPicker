@@ -37,6 +37,6 @@ type OptionsSchedulerType = {
 
 type OptionsNotesType = {
     enabled: boolean,
-    default: Object<Array<DayNotesValuesType>>,
-    values: [string, Object<Array<DayNotesValuesType, boolean>>][]
+    default: Array<NoteType>,
+    values: [string, [string, string, boolean][]][]
 }
