@@ -253,7 +253,7 @@ class CalendarRender implements iObserver {
                         divMonth.appendChild(
                             <div class={dayClass + ' day'} title={notes.map((note, i) => {
                                 return note.text + '\n';
-                            })}>
+                            }).join("")}>
                                 <div class={selected} onClick={
                                     function (e: MouseEvent) {
                                         const t = e.currentTarget as HTMLElement;
