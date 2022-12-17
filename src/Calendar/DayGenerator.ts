@@ -35,7 +35,7 @@ class DayGenerator implements iDayGenerator {
 
             const dateDay = new Date(_date.getTime());
 
-            const isDisableFrom = disableFrom.getTime() !== NaN ? disableFrom <= dateDay : false;
+            const isDisableFrom = disableFrom.getTime() !== undefined ? disableFrom <= dateDay : false;
             const isDisableTo = disableTo && _date.getTime() < disableTo.getTime();
             const isCurrentMonth = _date.getMonth() == date.getMonth();
             const isDisableDate = DateHelper.findDate(

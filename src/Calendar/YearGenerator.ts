@@ -40,7 +40,7 @@ class YearGenerator implements iDayGenerator {
             for (let index = 0; index < days.length; index++) {
                 const dateDay = days[index];
 
-                const isDisableFrom = disableFrom.getTime() !== NaN ? disableFrom <= dateDay : false;
+                const isDisableFrom = disableFrom.getTime() !== undefined ? disableFrom <= dateDay : false;
                 const isDisableTo = disableTo && dateDay.getTime() < disableTo.getTime();
                 const isCurrentMonth = dateDay.getMonth() == date.getMonth();
                 const isDisableDate = DateHelper.findDate(
